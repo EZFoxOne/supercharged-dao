@@ -19,5 +19,5 @@ Read more at: https://forum.scales.baby/t/supercharging-daos-distributed-and-dec
 
 ## Roadmap
 
-[ ] Add stratified sampling based on role to achieve a weighted sample.
-[ ] Integrate voting mechanism directly into bot instead of relying on Pollmaster.
+[] Add stratified sampling based on role to achieve a weighted sample.
+[] Integrate voting mechanism directly into bot instead of relying on Pollmaster.
