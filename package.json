@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/bot.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +13,11 @@
   "dependencies": {
     "@types/node": "^20.12.2",
     "discord.js": "^14.14.1",
-    "ts-node": "^10.9.2",
+    "dotenv": "^16.4.5",
     "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2"
   }
 }
