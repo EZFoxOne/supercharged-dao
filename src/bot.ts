@@ -12,6 +12,8 @@ import {
   PERMISSIONED_ROLE_ID,
   VOTING_ROLE_NAME,
 } from "./constants";
+import { assignRolesToMembers } from "./helpers/assignRoles";
+import { shuffleArray } from "./helpers/shuffle";
 
 const client = new Client({
   intents: [
@@ -21,12 +23,6 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
-
-const roleWeights: { [key: string]: number } = {
-  Role1: 10,
-  Role2: 20,
-  // Add more roles and their weights
-};
 
 client.once("ready", () => {
   console.log("Bot is ready!");
@@ -190,53 +186,3 @@ client.on("messageCreate", async (message) => {
 });
 
 client.login(process.env.DISCORD_BOT_TOKEN);
-
-// Helper function to add a role to a member with error handling
-async function tryAddRole(member: GuildMember, role: Role) {
-  try {
-    await member.roles.add(role);
-    console.log(`Role ${role.name} added to member ${member.user.tag}`);
-    return true; // Return true if the role was successfully added
-  } catch (error) {
-    console.error(`Failed to add role to ${member.user.tag}: ${error}`);
-    return false; // Return false if the role was not added
-  }
-}
-
-// Function to assign roles to an array of members with retry for failures
-async function assignRolesToMembers(
-  sample: GuildMember[],
-  role: Role,
-  delay = 300
-) {
-  let failedMembers = [];
-
-  // First pass: try to assign the role to all members
-  for (const member of sample) {
-    const success = await tryAddRole(member, role);
-    if (!success) {
-      failedMembers.push(member);
-    }
-    await new Promise((resolve) => setTimeout(resolve, delay)); // Delay to prevent rate limit hits
-  }
-
-  // Retry for failed role assignments
-  while (failedMembers.length > 0) {
-    const member = failedMembers.shift();
-    if (!member) continue; // Skip if the member is undefined (shouldn't happen
-    const success = await tryAddRole(member, role);
-    if (!success) {
-      // If the role assignment failed again, you could choose to log this member
-      // Or add them to another list for a final manual check
-    }
-    await new Promise((resolve) => setTimeout(resolve, delay)); // Delay to prevent rate limit hits
-  }
-}
-
-// Function to shuffle an array
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
