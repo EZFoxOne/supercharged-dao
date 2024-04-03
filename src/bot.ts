@@ -4,10 +4,14 @@ import {
   Client,
   GatewayIntentBits,
   GuildMember,
-  OverwriteResolvable,
   Role,
   TextChannel,
 } from "discord.js";
+import {
+  CHANNEL_CATEGORY,
+  PERMISSIONED_ROLE_ID,
+  VOTING_ROLE_NAME,
+} from "./constants";
 
 const client = new Client({
   intents: [
@@ -81,7 +85,7 @@ async function createChannelWithSampledMembers(
   const channel = await guild.channels.create({
     name: channelName,
     type: ChannelType.GuildText,
-    parent: "1220447576378314877",
+    parent: CHANNEL_CATEGORY,
     permissionOverwrites: [
       {
         id: guild.id,
@@ -117,7 +121,7 @@ async function createChannelWithSampledMembers(
 }
 
 client.on("messageCreate", async (message) => {
-  const teamRoleId = "1215214403121848350";
+  const teamRoleId = PERMISSIONED_ROLE_ID;
 
   if (message.content.startsWith("!createSampleChannel")) {
     if (message.member?.roles.cache.has(teamRoleId)) {
@@ -139,7 +143,7 @@ client.on("messageCreate", async (message) => {
       const sampledMembers = await sampleMembersWithReplacement(
         message.guild?.id ?? "",
         sampleSize,
-        "Baby Dragon"
+        VOTING_ROLE_NAME
       );
       const newChannel = await createChannelWithSampledMembers(
         message.guild?.id ?? "",
