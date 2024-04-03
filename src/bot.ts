@@ -29,7 +29,7 @@ client.once("ready", () => {
 });
 
 // Sample members with replacement
-async function sampleMembersWithReplacement(
+async function sampleMembers(
   guildId: string,
   sampleSize: number,
   roleName: string
@@ -136,7 +136,7 @@ client.on("messageCreate", async (message) => {
       const channelName = "🗳｜vote-" + (args.slice(2).join(" ") || "0");
 
       // Sample members and create channel
-      const sampledMembers = await sampleMembersWithReplacement(
+      const sampledMembers = await sampleMembers(
         message.guild?.id ?? "",
         sampleSize,
         VOTING_ROLE_NAME
