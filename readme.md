@@ -16,7 +16,7 @@ Read more at: https://forum.scales.baby/t/supercharging-daos-distributed-and-dec
 
 - Add a DISCORD_BOT_TOKEN in a .env file.
 - Edit the constants.ts file to suit your Discord.
-- "npm install" and "npm run dev"
+- `npm install` and `npm run dev`
 - Make sure the necessary scopes are added via OAuth2. (Manage Roles, Manage Channels, Read Messages/View Channels, Send Messages, Manage Messages, Embed Links)
 - Use the commands: "!createSampleChannel [sample size] [name of channel]" and "!deleteVoteChannels".
 - Add Pollmaster bot: https://github.com/RJ1002/pollmaster to create the poll after everyone is added to the channel.
