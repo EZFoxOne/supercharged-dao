@@ -1,3 +1,5 @@
+![alt text](/public/supercharged-dao-3.png)
+
 # Supercharged DAO
 
 Distributed, Decentralised Decision Making
