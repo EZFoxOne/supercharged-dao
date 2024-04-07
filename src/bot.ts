@@ -105,6 +105,7 @@ async function createChannelWithSampledMembers(
       {
         id: role.id,
         allow: ["ViewChannel", "ReadMessageHistory", "AddReactions"],
+        deny: ["SendMessages"],
       },
     ],
   });
@@ -161,9 +162,13 @@ client.on("messageCreate", async (message) => {
       const guild = await client.guilds.fetch(message.guild?.id ?? "");
 
       // Find and delete the role
-      const role = guild.roles.cache.find((r) => r.name.startsWith("🗳｜vote-"));
-      if (role) {
-        await role.delete("Cleanup process");
+      const roles = guild.roles.cache.filter((r) =>
+        r.name.startsWith("🗳｜vote-")
+      );
+      if (roles && roles.size > 0) {
+        for (const [, role] of roles) {
+          await role.delete("Cleanup process");
+        }
       }
 
       const voteChannels = guild.channels.cache.filter(
